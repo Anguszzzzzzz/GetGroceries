@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # checklist_app
 
 A new Flutter project.
@@ -18,4 +17,3 @@ samples, guidance on mobile development, and a full API reference.
 =======
 # GetGroceries
 An app to keep track of groceries to get
->>>>>>> 9cead350c303016fe8df4fc62b429082c2bbdc8e

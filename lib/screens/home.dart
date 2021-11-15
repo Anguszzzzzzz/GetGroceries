@@ -4,6 +4,7 @@ import 'package:checklist_app/controllers/auth_controller.dart';
 import 'package:checklist_app/controllers/item_list_controller.dart';
 import 'package:checklist_app/repositories/custom_exception.dart';
 import 'package:checklist_app/screens/login.dart';
+import 'package:checklist_app/util/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class HomeScreen extends HookWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Get Groceries!"),
+        centerTitle: true,
         leading: authControllerState != null
             ? IconButton(
                 onPressed: () => {
@@ -42,49 +44,59 @@ class HomeScreen extends HookWidget {
                 icon: const Icon(
                   Icons.logout,
                   color: textOnPrimaryGreen,
+                  size: appbarIconSize,
                 ))
             : null,
         actions: [
-          IconButton(
-            // splashColor: Colors.white54,
-            // highlightColor: Colors.white24,
-            //weekly filter
-            icon: Icon(
-              RpgAwesome.recycle,
-              color: isWeeklyFilter ? secondaryYellow : Colors.white,
-              // isWeeklyFilter
-              //     ? Icons.arrow_back_rounded
-              //     : Icons.find_replace_rounded,
+          Container(width: appbarIconSize*1.5,
+            child: IconButton(
+              padding: EdgeInsets.all(0),
+              splashRadius: appbarIconSize,
+              icon: Icon(
+                RpgAwesome.recycle,
+                color: isWeeklyFilter ? secondaryYellow : Colors.white,
+                size: appbarIconSize,
+                // isWeeklyFilter
+                //     ? Icons.arrow_back_rounded
+                //     : Icons.find_replace_rounded,
+              ),
+              onPressed: () => itemListFilter.state =
+                  isWeeklyFilter ? ItemListFilter.all : ItemListFilter.weekly,
             ),
-            onPressed: () => itemListFilter.state =
-                isWeeklyFilter ? ItemListFilter.all : ItemListFilter.weekly,
           ),
           //item low filter
-          IconButton(
-            // splashColor: Colors.white54,
-            // highlightColor: Colors.white24,
-            icon: Icon(
-              Typicons.warning_empty,
-              size: 21,
-              color: isUnobtainedFilter ? secondaryYellow : Colors.white,
+          Container(width: appbarIconSize*1.5,
+            child: IconButton(
+              padding: EdgeInsets.all(0),
+              splashRadius: appbarIconSize,
+              icon: Icon(
+                Typicons.warning_empty,
+                size: appbarIconSize,
+                color: isUnobtainedFilter ? secondaryYellow : Colors.white,
+              ),
+              onPressed: () => itemListFilter.state = isUnobtainedFilter
+                  ? ItemListFilter.all
+                  : ItemListFilter.unobtained,
             ),
-            onPressed: () => itemListFilter.state = isUnobtainedFilter
-                ? ItemListFilter.all
-                : ItemListFilter.unobtained,
           ),
           //to-buy item filter
-          IconButton(
-            // splashColor: Colors.white54,
-            // highlightColor: Colors.white24,
-            icon: Icon(
-              FontAwesome5.shopping_basket,
-              size: 21,
-              color: isToBuyFilter ? secondaryYellow : Colors.white,
+          Container(width: appbarIconSize*1.5,
+            child: Center(
+              child: IconButton(
+                padding: EdgeInsets.all(0),
+                splashRadius: appbarIconSize,
+                icon: Icon(
+                  FontAwesome5.shopping_basket,
+                  size: appbarIconSize,
+                  color: isToBuyFilter ? secondaryYellow : Colors.white,
+                ),
+                onPressed: () => itemListFilter.state = isToBuyFilter
+                    ? ItemListFilter.all
+                    : ItemListFilter.toBuy,
+              ),
             ),
-            onPressed: () => itemListFilter.state = isToBuyFilter
-                ? ItemListFilter.all
-                : ItemListFilter.toBuy,
           ),
+          SizedBox(width: 15,)
         ],
       ),
       body: ProviderListener(
@@ -100,7 +112,7 @@ class HomeScreen extends HookWidget {
             ),
           );
         },
-        child: const ItemList(),
+        child: ItemList(),
       ),
       floatingActionButton: Container(
         height: 110,
@@ -186,16 +198,95 @@ class AddItemDialog extends HookWidget {
   }
 }
 
+class DeleteItemDialog extends HookWidget {
+  static void show(BuildContext context, Item item) {
+    showDialog(
+      context: context,
+      builder: (context) => DeleteItemDialog(item: item),
+    );
+  }
+
+  final Item item;
+
+  const DeleteItemDialog({Key? key, required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    final textController = useTextEditingController(text: item.name);
+    return Dialog(
+      elevation: 10,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Delete item: ${item.name}?'),
+            const SizedBox(height: 12),
+            Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              SizedBox(
+                width: dialogButtonSize,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: primaryGreen,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 10,),
+              SizedBox(
+                width: dialogButtonSize,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: primaryRed,
+                  ),
+                  onPressed: () {
+                    try{
+                      context.read(itemListControllerProvider).deleteItem(itemId: item.id!);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Successfully deleted ${item.name}')));
+                    }catch(e){
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+                    }
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Delete',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],)
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 final currentItem = ScopedProvider<Item>((_) => throw UnimplementedError());
 
 class ItemList extends HookWidget {
-  const ItemList({Key? key}) : super(key: key);
+  ItemList({Key? key}) : super(key: key);
+  ScrollController sc = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     final itemListState = useProvider(itemListControllerProvider.state);
     final filteredItemList = useProvider(filteredItemListProvider);
+    filteredItemList.sort((a,b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     return itemListState.when(
       data: (items) => items.isEmpty
           ? const Center(
@@ -204,16 +295,20 @@ class ItemList extends HookWidget {
                 style: TextStyle(fontSize: 20, color: Colors.black87),
               ),
             )
-          : ListView.builder(
-              itemCount: filteredItemList.length,
-              itemBuilder: (BuildContext context, int index) {
-                final item = filteredItemList[index];
-                return ProviderScope(
-                  overrides: [currentItem.overrideWithValue(item)],
-                  child: const ItemTile(),
-                );
-              },
-            ),
+          : Scrollbar(thickness: 10, hoverThickness: 5,showTrackOnHover: true,
+            controller: sc,
+            child: ListView.builder(
+              controller: sc,
+                itemCount: filteredItemList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = filteredItemList[index];
+                  return ProviderScope(
+                    overrides: [currentItem.overrideWithValue(item)],
+                    child: const ItemTile(),
+                  );
+                },
+              ),
+          ),
       loading: () => const Center(
         child: CircularProgressIndicator(),
       ),
@@ -239,29 +334,34 @@ class ItemTile extends HookWidget {
 
     return ListTile(
         key: ValueKey(item.id),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
         leading: Row(mainAxisSize: MainAxisSize.min,
           children: [
             //weekly icon
-            IconButton(
-              icon: Icon(
-                FontAwesome5.recycle,
-                size: 20,
-                color: isWeekly ? primaryGreen : Colors.black87,
+            Container(width: appbarIconSize*1.5,
+              child: IconButton(
+                icon: Icon(
+                  FontAwesome5.recycle,
+                  size: 20,
+                  color: isWeekly ? primaryGreen : Colors.black87,
+                ),
+                onPressed: () => context
+                    .read(itemListControllerProvider)
+                    .updateItem(updatedItem: item.copyWith(weekly: !item.weekly)),
               ),
-              onPressed: () => context
-                  .read(itemListControllerProvider)
-                  .updateItem(updatedItem: item.copyWith(weekly: !item.weekly)),
             ),
             //tobuy icon
-            IconButton(
-              icon: Icon(
-                FontAwesome5.shopping_basket,
-                size: 20,
-                color: isToBuy ? primaryGreen : Colors.black87,
+            Container(width: appbarIconSize*1.5,
+              child: IconButton(
+                icon: Icon(
+                  FontAwesome5.shopping_basket,
+                  size: 20,
+                  color: isToBuy ? primaryGreen : Colors.black87,
+                ),
+                onPressed: () => context
+                    .read(itemListControllerProvider)
+                    .updateItem(updatedItem: item.copyWith(toBuy: !item.toBuy)),
               ),
-              onPressed: () => context
-                  .read(itemListControllerProvider)
-                  .updateItem(updatedItem: item.copyWith(toBuy: !item.toBuy)),
             ),
           ],
         ),
@@ -274,12 +374,13 @@ class ItemTile extends HookWidget {
           value: item.obtained,
           onChanged: (val) => context
               .read(itemListControllerProvider)
-              .updateItem(updatedItem: item.copyWith(obtained: !item.obtained)),
+              .updateItem(updatedItem: item.copyWith(obtained: !item.obtained, toBuy: false)),
         ),
         onTap: () => AddItemDialog.show(context, item),
-        onLongPress: () => context
-            .read(itemListControllerProvider)
-            .deleteItem(itemId: item.id!));
+        onLongPress: () {
+          DeleteItemDialog.show(context, item);
+          // context.read(itemListControllerProvider).deleteItem(itemId: item.id!);
+        });
   }
 }
 

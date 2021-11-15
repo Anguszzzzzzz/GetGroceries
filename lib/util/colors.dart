@@ -11,3 +11,5 @@ const secondaryYellowDark = const Color(0xffc17900);
 const textOnPrimaryGreen = const Color(0xfffafafa);
 const textOnSecondaryBlack = const Color(0xff000000);
 const secondaryBackgroundWhite = const Color(0xff000000);
+
+const primaryRed = Colors.red;

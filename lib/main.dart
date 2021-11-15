@@ -1,25 +1,6 @@
-// import 'dart:ffi';
-//
-// import 'package:checklist_app/controllers/auth_controller.dart';
-// import 'package:checklist_app/controllers/item_list_controller.dart';
-// import 'package:checklist_app/repositories/custom_exception.dart';
-
-// import 'package:flutter/rendering.dart';
-// import 'package:flutter_hooks/flutter_hooks.dart';
-// import 'package:checklist_app/util/colors.dart';
-
-// import 'package:hooks_riverpod/all.dart';
-//
-// import 'package:fluttericon/font_awesome5_icons.dart';
-// import 'package:fluttericon/octicons_icons.dart';
-// import 'package:fluttericon/rpg_awesome_icons.dart';
-//
-// import 'models/item_model.dart';
-
 import 'package:checklist_app/screens/home.dart';
 import 'package:checklist_app/screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

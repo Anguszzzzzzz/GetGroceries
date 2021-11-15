@@ -150,7 +150,10 @@ class AddItemDialog extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final textController = useTextEditingController(text: item.name);
+    final nameController = useTextEditingController(text: item.name);
+    ValueNotifier categoryValue = useState(categories.indexOf(item.category??'Others'));
+    print('${categoryValue.value}');
+
     return Dialog(
       elevation: 10,
       child: Padding(
@@ -159,9 +162,15 @@ class AddItemDialog extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
-              controller: textController,
+              controller: nameController,
               autofocus: true,
               decoration: const InputDecoration(hintText: 'Item name'),
+            ),
+            DropdownButtonFormField(
+              value: categoryValue.value,
+                items: categories.map((e) => DropdownMenuItem(child: Text(e),value: categories.indexOf(e),)).toList(),
+              onChanged: (v) =>
+                categoryValue.value = v,
             ),
             const SizedBox(height: 12),
             SizedBox(
@@ -174,13 +183,14 @@ class AddItemDialog extends HookWidget {
                   isUpdating
                       ? context.read(itemListControllerProvider).updateItem(
                             updatedItem: item.copyWith(
-                              name: textController.text.trim(),
+                              name: nameController.text.trim(),
                               obtained: item.obtained,
+                              category: categories[categoryValue.value]
                             ),
                           )
                       : context
                           .read(itemListControllerProvider)
-                          .addItem(name: textController.text.trim());
+                          .addItem(name: nameController.text.trim(), category: categories[categoryValue.value]);
                   Navigator.of(context).pop();
                 },
                 child: Text(
@@ -286,7 +296,12 @@ class ItemList extends HookWidget {
     // TODO: implement build
     final itemListState = useProvider(itemListControllerProvider.state);
     final filteredItemList = useProvider(filteredItemListProvider);
-    filteredItemList.sort((a,b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    filteredItemList.sort((a,b)
+    {
+      var cmp = (a.category?.toLowerCase()??'').compareTo(b.category?.toLowerCase()??'');
+      if (cmp != 0) return -cmp;
+      else return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+    });
     return itemListState.when(
       data: (items) => items.isEmpty
           ? const Center(

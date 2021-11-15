@@ -15,6 +15,7 @@ abstract class Item implements _$Item{
   const factory Item({
     String? id,
     required String name,
+    String? category,
     @Default(false) bool obtained,
     @Default(false) bool weekly,
     @Default(false) bool toBuy,

@@ -82,9 +82,10 @@ class ItemListController extends StateNotifier<AsyncValue<List<Item>>> {
     }
   }
 
-  Future<void> addItem({required String name, bool obtained = false}) async {
+  Future<void> addItem({required String name, bool obtained = false, String? category}) async {
     try {
-      final item = Item(name: name, obtained: obtained);
+      print('category: $category');
+      final item = Item(name: name, obtained: obtained, category: category??'');
       final itemId = await _read(itemRepositoryProvider).createItem(
         userId: _userId!,
         item: item,

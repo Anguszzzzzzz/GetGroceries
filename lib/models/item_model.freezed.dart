@@ -19,12 +19,14 @@ class _$ItemTearOff {
   _Item call(
       {String? id,
       required String name,
+      String? category,
       bool obtained = false,
       bool weekly = false,
       bool toBuy = false}) {
     return _Item(
       id: id,
       name: name,
+      category: category,
       obtained: obtained,
       weekly: weekly,
       toBuy: toBuy,
@@ -43,6 +45,7 @@ const $Item = _$ItemTearOff();
 mixin _$Item {
   String? get id;
   String get name;
+  String? get category;
   bool get obtained;
   bool get weekly;
   bool get toBuy;
@@ -56,7 +59,13 @@ mixin _$Item {
 abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
       _$ItemCopyWithImpl<$Res>;
-  $Res call({String? id, String name, bool obtained, bool weekly, bool toBuy});
+  $Res call(
+      {String? id,
+      String name,
+      String? category,
+      bool obtained,
+      bool weekly,
+      bool toBuy});
 }
 
 /// @nodoc
@@ -71,6 +80,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? category = freezed,
     Object? obtained = freezed,
     Object? weekly = freezed,
     Object? toBuy = freezed,
@@ -78,6 +88,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String?,
       name: name == freezed ? _value.name : name as String,
+      category: category == freezed ? _value.category : category as String?,
       obtained: obtained == freezed ? _value.obtained : obtained as bool,
       weekly: weekly == freezed ? _value.weekly : weekly as bool,
       toBuy: toBuy == freezed ? _value.toBuy : toBuy as bool,
@@ -90,7 +101,13 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
   factory _$ItemCopyWith(_Item value, $Res Function(_Item) then) =
       __$ItemCopyWithImpl<$Res>;
   @override
-  $Res call({String? id, String name, bool obtained, bool weekly, bool toBuy});
+  $Res call(
+      {String? id,
+      String name,
+      String? category,
+      bool obtained,
+      bool weekly,
+      bool toBuy});
 }
 
 /// @nodoc
@@ -106,6 +123,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? category = freezed,
     Object? obtained = freezed,
     Object? weekly = freezed,
     Object? toBuy = freezed,
@@ -113,6 +131,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     return _then(_Item(
       id: id == freezed ? _value.id : id as String?,
       name: name == freezed ? _value.name : name as String,
+      category: category == freezed ? _value.category : category as String?,
       obtained: obtained == freezed ? _value.obtained : obtained as bool,
       weekly: weekly == freezed ? _value.weekly : weekly as bool,
       toBuy: toBuy == freezed ? _value.toBuy : toBuy as bool,
@@ -127,6 +146,7 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
   const _$_Item(
       {this.id,
       required this.name,
+      this.category,
       this.obtained = false,
       this.weekly = false,
       this.toBuy = false})
@@ -139,6 +159,8 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
   final String? id;
   @override
   final String name;
+  @override
+  final String? category;
   @JsonKey(defaultValue: false)
   @override
   final bool obtained;
@@ -151,7 +173,7 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Item(id: $id, name: $name, obtained: $obtained, weekly: $weekly, toBuy: $toBuy)';
+    return 'Item(id: $id, name: $name, category: $category, obtained: $obtained, weekly: $weekly, toBuy: $toBuy)';
   }
 
   @override
@@ -161,6 +183,7 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'Item'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('obtained', obtained))
       ..add(DiagnosticsProperty('weekly', weekly))
       ..add(DiagnosticsProperty('toBuy', toBuy));
@@ -174,6 +197,9 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.category, category) ||
+                const DeepCollectionEquality()
+                    .equals(other.category, category)) &&
             (identical(other.obtained, obtained) ||
                 const DeepCollectionEquality()
                     .equals(other.obtained, obtained)) &&
@@ -188,6 +214,7 @@ class _$_Item extends _Item with DiagnosticableTreeMixin {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(obtained) ^
       const DeepCollectionEquality().hash(weekly) ^
       const DeepCollectionEquality().hash(toBuy);
@@ -208,6 +235,7 @@ abstract class _Item extends Item {
   const factory _Item(
       {String? id,
       required String name,
+      String? category,
       bool obtained,
       bool weekly,
       bool toBuy}) = _$_Item;
@@ -218,6 +246,8 @@ abstract class _Item extends Item {
   String? get id;
   @override
   String get name;
+  @override
+  String? get category;
   @override
   bool get obtained;
   @override

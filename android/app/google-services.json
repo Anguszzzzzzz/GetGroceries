@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "963986720059",
+    "project_id": "fir-checklist-e0fa6",
+    "storage_bucket": "fir-checklist-e0fa6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963986720059:android:a01b81386afd0c9793631e",
+        "android_client_info": {
+          "package_name": "com.angusz.checklistapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963986720059-j03g1bffkf6qrs3ccbip3r4au9oik9an.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.angusz.checklistapp",
+            "certificate_hash": "f4cefaba4311e1c7702434f6957f8f1d97232543"
+          }
+        },
+        {
+          "client_id": "963986720059-d2pqlo860d6ia5agb3rmusrfrg9523i4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7PeluvqAhxp1k_nF-xJeuFmlNDMdK7Wg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963986720059-d2pqlo860d6ia5agb3rmusrfrg9523i4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

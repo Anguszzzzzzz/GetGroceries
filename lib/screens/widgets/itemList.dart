@@ -1,6 +1,7 @@
 import 'package:checklist_app/controllers/item_list_controller.dart';
 import 'package:checklist_app/models/item_model.dart';
 import 'package:checklist_app/repositories/custom_exception.dart';
+import 'package:checklist_app/ui/components.dart';
 import 'package:checklist_app/util/app_theme.dart';
 import 'package:checklist_app/util/colors.dart';
 import 'package:checklist_app/util/constants.dart';
@@ -50,8 +51,8 @@ class ItemList extends HookWidget {
           },
         ),
       ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
+      loading: () => Center(
+        child: circProgIndi(),
       ),
       error: (error, _) => ItemListError(
         message:

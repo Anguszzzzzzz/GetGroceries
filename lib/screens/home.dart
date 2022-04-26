@@ -49,18 +49,19 @@ class HomeScreen extends HookWidget {
               icon: RpgAwesome.recycle,
               iconColor: isWeeklyFilter ? secondaryYellow : Colors.white
           ),
+          SizedBox(width: 15,),
           //item low filter
           filterButton(
               onPressed: () => itemListFilter.state = isUnobtainedFilter ? ItemListFilter.all : ItemListFilter.unobtained,
               icon: Typicons.warning_empty,
               iconColor: isUnobtainedFilter ? secondaryYellow : Colors.white
           ),
-          //to-buy item filter
-          filterButton(
-              onPressed: () => itemListFilter.state = isToBuyFilter ? ItemListFilter.all : ItemListFilter.toBuy,
-              icon: FontAwesome5.shopping_basket,
-              iconColor: isToBuyFilter ? secondaryYellow : Colors.white
-          ),
+          // //to-buy item filter
+          // filterButton(
+          //     onPressed: () => itemListFilter.state = isToBuyFilter ? ItemListFilter.all : ItemListFilter.toBuy,
+          //     icon: FontAwesome5.shopping_basket,
+          //     iconColor: isToBuyFilter ? secondaryYellow : Colors.white
+          // ),
           SizedBox(width: 15,)
         ],
       ),

@@ -25,38 +25,65 @@ class ItemList extends HookWidget {
     final filteredItemList = useProvider(filteredItemListProvider);
     filteredItemList.sort((a,b)
     {
-      var cmp = (a.category?.toLowerCase()??'').compareTo(b.category?.toLowerCase()??'');
-      if (cmp != 0) return -cmp;
-      else return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+      List _categories = categories.map((e) => e.toLowerCase()).toList();
+      var cmp =  (_categories.indexOf(a.category?.toLowerCase()??'')).compareTo(_categories.indexOf(b.category?.toLowerCase()??''));
+      return cmp;
+      // if (cmp != 0) return cmp;
+      // else return a.name.toLowerCase().compareTo(b.name.toLowerCase());
     });
     return itemListState.when(
-      data: (items) => items.isEmpty
-          ? const Center(
-        child: Text(
-          'Tap + to add an item',
-          style: TextStyle(fontSize: 20, color: Colors.black87),
-        ),
-      )
-          : Scrollbar(thickness: 10, hoverThickness: 5,showTrackOnHover: true,
-        controller: sc,
-        child: ListView.builder(
-          controller: sc,
-          itemCount: filteredItemList.length,
-          itemBuilder: (BuildContext context, int index) {
-            final item = filteredItemList[index];
-            return ProviderScope(
-              overrides: [currentItem.overrideWithValue(item)],
-              child: const ItemTile(),
-            );
-          },
-        ),
-      ),
+      data: (items) {
+        if(filteredItemList.isEmpty)
+          return const Center(
+                child: Text(
+                  'Tap + to add an item',
+                  style: TextStyle(fontSize: 20, color: Colors.black87),
+                ),
+              );
+        else {
+          return ListView.separated(
+                controller: sc,
+                itemCount: filteredItemList.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == 0) return _separator(filteredItemList[index].category);
+                  final item = filteredItemList[index - 1];
+                  return ProviderScope(
+                    overrides: [currentItem.overrideWithValue(item)],
+                    child: const ItemTile(),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  if(index == 0) return Container();
+                  if (filteredItemList[index - 1].category == filteredItemList[index].category)
+                    return Container();
+                  else
+                    return Column(
+                      children: [
+                        Text(filteredItemList[index].category ?? "No Category"),
+                        Divider(),
+                      ],
+                    );
+                },
+              );}
+      },
       loading: () => Center(
         child: circProgIndi(),
       ),
       error: (error, _) => ItemListError(
         message:
         error is CustomException ? error.message! : 'Something went wrong',
+      ),
+    );
+  }
+
+  Widget _separator (String? category) {
+    return Padding(
+      padding: EdgeInsets.only(top: 8),
+      child: Column(
+        children: [
+          Text(category??"No Category"),
+          Divider(),
+        ],
       ),
     );
   }
@@ -92,19 +119,19 @@ class ItemTile extends HookWidget {
                     .updateItem(updatedItem: item.copyWith(weekly: !item.weekly)),
               ),
             ),
-            //tobuy icon
-            Container(width: appbarIconSize*1.5,
-              child: IconButton(
-                icon: Icon(
-                  FontAwesome5.shopping_basket,
-                  size: 20,
-                  color: isToBuy ? primaryGreen : Colors.black87,
-                ),
-                onPressed: () => context
-                    .read(itemListControllerProvider)
-                    .updateItem(updatedItem: item.copyWith(toBuy: !item.toBuy)),
-              ),
-            ),
+            // //tobuy icon
+            // Container(width: appbarIconSize*1.5,
+            //   child: IconButton(
+            //     icon: Icon(
+            //       FontAwesome5.shopping_basket,
+            //       size: 20,
+            //       color: isToBuy ? primaryGreen : Colors.black87,
+            //     ),
+            //     onPressed: () => context
+            //         .read(itemListControllerProvider)
+            //         .updateItem(updatedItem: item.copyWith(toBuy: !item.toBuy)),
+            //   ),
+            // ),
           ],
         ),
         title: Text(

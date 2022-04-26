@@ -30,11 +30,13 @@ class AddItemDialog extends HookWidget {
 
     return Dialog(
       elevation: 10,
-      child: Padding(
+      child: Container(
+        constraints: BoxConstraints(maxWidth: 400),
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Text(isUpdating?"Update Item":"Add Item"),
             TextField(
               controller: nameController,
               autofocus: true,

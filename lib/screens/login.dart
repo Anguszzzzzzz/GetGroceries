@@ -46,6 +46,7 @@ class LoginScreen extends HookWidget {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
             Image(
+              height: MediaQuery.of(context).size.height * 0.4,
                 image: AssetImage('lib/images/bg.png')),
             SizedBox(
               height: 20,

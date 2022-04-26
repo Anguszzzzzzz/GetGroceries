@@ -1,5 +1,6 @@
 import 'package:checklist_app/general_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -71,15 +72,20 @@ class AuthRepository implements BaseAuthRepository {
   Future<void> signInWithGoogle() async {
     // TODO: implement signInWithGoogle
     try {
-      final GoogleSignInAccount googleUser = (await googleSignIn.signIn())!;
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-      await _read(firebaseAuthProvider).signInWithCredential(credential);
-      print(googleUser.displayName);
+      if(kIsWeb) {
+        GoogleAuthProvider googleProvider = GoogleAuthProvider();
+        UserCredential userCredential = await _read(firebaseAuthProvider).signInWithPopup(googleProvider);
+      }
+      else {
+        final GoogleSignInAccount googleUser = (await googleSignIn.signIn())!;
+        final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+            idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+        await _read(firebaseAuthProvider).signInWithCredential(credential);
+        print(googleUser.displayName);
+      }
     } on FirebaseAuthException catch (e) {
-      // TODO
       throw CustomException(message: e.message);
     }
   }

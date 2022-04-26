@@ -115,7 +115,7 @@ class DeleteItemDialog extends HookWidget {
                   width: dialogButtonSize,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: primaryGreen,
+                      primary: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -133,7 +133,7 @@ class DeleteItemDialog extends HookWidget {
                   width: dialogButtonSize,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: primaryRed,
+                      primary: Theme.of(context).errorColor,
                     ),
                     onPressed: () {
                       try{

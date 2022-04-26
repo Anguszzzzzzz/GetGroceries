@@ -31,13 +31,26 @@ class ItemList extends HookWidget {
       // if (cmp != 0) return cmp;
       // else return a.name.toLowerCase().compareTo(b.name.toLowerCase());
     });
+
+    Widget _separator (String? category) {
+      return Padding(
+        padding: EdgeInsets.only(top: 8),
+        child: Column(
+          children: [
+            Text(category??"No Category", style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 12, color: Colors.grey),),
+            Divider(thickness: 1, indent: 16, endIndent: 16,),
+          ],
+        ),
+      );
+    }
+
     return itemListState.when(
       data: (items) {
         if(filteredItemList.isEmpty)
-          return const Center(
+          return Center(
                 child: Text(
-                  'Tap + to add an item',
-                  style: TextStyle(fontSize: 20, color: Colors.black87),
+                  'Tap \"+\" to add an item',
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 20),
                 ),
               );
         else {
@@ -61,12 +74,7 @@ class ItemList extends HookWidget {
                     if (filteredItemList[index - 1].category == filteredItemList[index].category)
                       return Container();
                     else
-                      return Column(
-                        children: [
-                          Text(filteredItemList[index].category ?? "No Category"),
-                          Divider(),
-                        ],
-                      );
+                      return _separator(filteredItemList[index].category);
                   },
                 ),
           );}
@@ -81,17 +89,6 @@ class ItemList extends HookWidget {
     );
   }
 
-  Widget _separator (String? category) {
-    return Padding(
-      padding: EdgeInsets.only(top: 8),
-      child: Column(
-        children: [
-          Text(category??"No Category"),
-          Divider(),
-        ],
-      ),
-    );
-  }
 }
 
 class ItemTile extends HookWidget {
@@ -105,6 +102,8 @@ class ItemTile extends HookWidget {
     final isWeekly = item.weekly;
     final isToBuy = item.toBuy;
 
+    final brightness = WidgetsBinding.instance?.window.platformBrightness;
+    bool isDark = brightness == Brightness.dark;
 
     return ListTile(
         key: ValueKey(item.id),
@@ -117,7 +116,7 @@ class ItemTile extends HookWidget {
                 icon: Icon(
                   FontAwesome5.recycle,
                   size: 20,
-                  color: isWeekly ? primaryGreen : Colors.black87,
+                  color: isWeekly ? Theme.of(context).primaryColor : Theme.of(context).dividerColor,
                 ),
                 onPressed: () => context
                     .read(itemListControllerProvider)
@@ -141,7 +140,6 @@ class ItemTile extends HookWidget {
         ),
         title: Text(
           item.name,
-          style: appTheme.textTheme.bodyText1,
         ),
         trailing: Checkbox(
           // fillColor: MaterialStateProperty.all(Colors.black87),

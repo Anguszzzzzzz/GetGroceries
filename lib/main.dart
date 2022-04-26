@@ -30,7 +30,8 @@ class MyApp extends HookWidget {
 
     return MaterialApp(
       title: 'GetGroceries',
-      theme: appTheme,
+      theme: buildAppTheme(),
+      darkTheme: buildAppTheme(dark: true),
       themeMode: ThemeMode.system,
       home: authControllerState != null ? HomeScreen() : LoginScreen(),
       debugShowCheckedModeBanner: false,

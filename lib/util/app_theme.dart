@@ -2,25 +2,26 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
 
-final ThemeData appTheme = _buildAppTheme();
 
-ThemeData _buildAppTheme() {
-  final ThemeData base = ThemeData.light();
+ThemeData buildAppTheme({bool dark = false}) {
+  final ThemeData base = dark?ThemeData.dark():ThemeData.light();
 
   return base.copyWith(
-      brightness: Brightness.light,
-      primaryColor: primaryGreen,
+      brightness: dark?Brightness.dark:Brightness.light,
+      primaryColor: dark?primaryGreenDark:primaryGreen,
       primaryColorDark: primaryGreenDark,
       primaryColorLight: primaryGreenLight,
+      errorColor: dark?primaryRedDark:primaryRed,
       progressIndicatorTheme: ProgressIndicatorThemeData(color: primaryGreen),
-      scaffoldBackgroundColor: Colors.white,
-      textTheme: _appTextTheme(base.textTheme),
+      scaffoldBackgroundColor: dark?Color(0xFF303030):Colors.white,
+      textTheme: base.textTheme,
       snackBarTheme: _appSnackBarTheme(base.snackBarTheme),
-      appBarTheme: _appBarTheme(base.appBarTheme),
+      appBarTheme: _appBarTheme(base.appBarTheme.copyWith(brightness: dark?Brightness.dark:Brightness.light)),
       elevatedButtonTheme: _elevatedButtonTheme(base.elevatedButtonTheme),
       floatingActionButtonTheme: _floatingActionButtonTheme(base.floatingActionButtonTheme),
-      checkboxTheme: _checkBoxTheme(base.checkboxTheme),
-      buttonTheme: _buttonTheme(base.buttonTheme), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: primaryGreen)
+      checkboxTheme: _checkBoxTheme(base.checkboxTheme, dark),
+      buttonTheme: _buttonTheme(base.buttonTheme), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: primaryGreen),
+      dividerColor: dark?Colors.grey.withOpacity(0.5):Colors.grey
     // dialogTheme: _dialogTheme(base.dialogTheme)
   ).copyWith(
           colorScheme: ColorScheme(
@@ -55,9 +56,9 @@ TextTheme _appTextTheme(TextTheme base) {
   );
 }
 
-CheckboxThemeData _checkBoxTheme(CheckboxThemeData base) {
+CheckboxThemeData _checkBoxTheme(CheckboxThemeData base, bool dark) {
   return base.copyWith(
-    fillColor: MaterialStateProperty.all(primaryGreen),
+    fillColor: MaterialStateProperty.all(dark?primaryGreenDark:primaryGreen),
     // checkColor: MaterialStateProperty.all(secodaryYellow),
   );
 }
@@ -81,7 +82,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(ElevatedButtonThemeData base) {
 AppBarTheme _appBarTheme(AppBarTheme base) {
   return base.copyWith(
     centerTitle: true,
-    backgroundColor: primaryGreen,
+    backgroundColor: base.brightness==Brightness.dark?primaryGreenDark:primaryGreen,
     titleTextStyle: TextStyle(
         color: textOnPrimaryGreen, fontWeight: FontWeight.w600, fontSize: 24),
     // textTheme: TextTheme(

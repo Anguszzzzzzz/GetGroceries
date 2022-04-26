@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "963986720059-20ai6aka93iqb1gn3enq1o02vbd06rdp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.angusz.checklistapp",
+            "certificate_hash": "aea580c0c13ad9e964fb937a7050934c94f1e3a1"
+          }
+        },
+        {
           "client_id": "963986720059-j03g1bffkf6qrs3ccbip3r4au9oik9an.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.angusz.checklistapp",
             "certificate_hash": "f4cefaba4311e1c7702434f6957f8f1d97232543"
+          }
+        },
+        {
+          "client_id": "963986720059-tsm7vbkqo5k57t9j1ut9v69cmtsqs62i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.angusz.checklistapp",
+            "certificate_hash": "881c1066cac7456ac167de06959522f681677232"
           }
         },
         {
@@ -37,6 +53,13 @@
             {
               "client_id": "963986720059-d2pqlo860d6ia5agb3rmusrfrg9523i4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "963986720059-6rg3ac4uq0tlvrr4vr8rej37lj8mm0gb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.angusz.checklistapp"
+              }
             }
           ]
         }

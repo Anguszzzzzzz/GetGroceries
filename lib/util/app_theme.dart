@@ -8,19 +8,33 @@ ThemeData _buildAppTheme() {
   final ThemeData base = ThemeData.light();
 
   return base.copyWith(
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       primaryColor: primaryGreen,
+      primaryColorDark: primaryGreenDark,
+      primaryColorLight: primaryGreenLight,
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: primaryGreen),
       scaffoldBackgroundColor: Colors.white,
       textTheme: _appTextTheme(base.textTheme),
       snackBarTheme: _appSnackBarTheme(base.snackBarTheme),
       appBarTheme: _appBarTheme(base.appBarTheme),
       elevatedButtonTheme: _elevatedButtonTheme(base.elevatedButtonTheme),
-      floatingActionButtonTheme:
-      _floatingActionButtonTheme(base.floatingActionButtonTheme),
+      floatingActionButtonTheme: _floatingActionButtonTheme(base.floatingActionButtonTheme),
       checkboxTheme: _checkBoxTheme(base.checkboxTheme),
       buttonTheme: _buttonTheme(base.buttonTheme), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: primaryGreen)
     // dialogTheme: _dialogTheme(base.dialogTheme)
-  );
+  ).copyWith(
+          colorScheme: ColorScheme(
+              brightness: Brightness.light,
+              primary: primaryGreen,
+              onPrimary: Colors.white,
+              secondary: primaryGreen,
+              onSecondary: Colors.black,
+              error: Colors.redAccent,
+              onError: Colors.white,
+              background: Colors.white,
+              onBackground: Colors.black,
+              surface: Colors.white,
+              onSurface: Colors.black));
 }
 
 ButtonThemeData _buttonTheme(ButtonThemeData base){

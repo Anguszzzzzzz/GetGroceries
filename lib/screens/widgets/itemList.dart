@@ -41,30 +41,35 @@ class ItemList extends HookWidget {
                 ),
               );
         else {
-          return ListView.separated(
-                controller: sc,
-                itemCount: filteredItemList.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) return _separator(filteredItemList[index].category);
-                  final item = filteredItemList[index - 1];
-                  return ProviderScope(
-                    overrides: [currentItem.overrideWithValue(item)],
-                    child: const ItemTile(),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  if(index == 0) return Container();
-                  if (filteredItemList[index - 1].category == filteredItemList[index].category)
-                    return Container();
-                  else
-                    return Column(
-                      children: [
-                        Text(filteredItemList[index].category ?? "No Category"),
-                        Divider(),
-                      ],
+          return RefreshIndicator(
+            onRefresh: () async {
+              await context.read(itemListControllerProvider).retrieveItems(isRefreshing: true);
+            },
+            child: ListView.separated(
+                  controller: sc,
+                  itemCount: filteredItemList.length + 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) return _separator(filteredItemList[index].category);
+                    final item = filteredItemList[index - 1];
+                    return ProviderScope(
+                      overrides: [currentItem.overrideWithValue(item)],
+                      child: const ItemTile(),
                     );
-                },
-              );}
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    if(index == 0) return Container();
+                    if (filteredItemList[index - 1].category == filteredItemList[index].category)
+                      return Container();
+                    else
+                      return Column(
+                        children: [
+                          Text(filteredItemList[index].category ?? "No Category"),
+                          Divider(),
+                        ],
+                      );
+                  },
+                ),
+          );}
       },
       loading: () => Center(
         child: circProgIndi(),

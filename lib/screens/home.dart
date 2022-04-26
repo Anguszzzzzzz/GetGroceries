@@ -30,17 +30,22 @@ class HomeScreen extends HookWidget {
         title: Text("Get Groceries!"),
         centerTitle: true,
         leading: authControllerState != null
-            ? IconButton(
-                onPressed: () => {
-                      context.read(authControllerProvider).signOut(),
-                      // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      //     builder: (context) => LoginScreen())),
-                    },
-                icon: const Icon(
-                  Icons.logout,
-                  color: textOnPrimaryGreen,
-                  size: appbarIconSize,
-                ))
+            ? Container(width: appbarIconSize * 1.5,
+              child: Center(
+                child: IconButton(
+                  splashRadius: appbarIconSize,
+                    onPressed: () => {
+                          context.read(authControllerProvider).signOut(),
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //     builder: (context) => LoginScreen())),
+                        },
+                    icon: const Icon(
+                      Icons.logout,
+                      color: textOnPrimaryGreen,
+                      size: appbarIconSize,
+                    )),
+              ),
+            )
             : null,
         actions: [
           //weekly item filter

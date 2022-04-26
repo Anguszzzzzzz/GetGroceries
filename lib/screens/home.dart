@@ -1,20 +1,20 @@
-import 'package:checklist_app/controllers/auth_controller.dart';
-import 'package:checklist_app/controllers/item_list_controller.dart';
-import 'package:checklist_app/repositories/custom_exception.dart';
-import 'package:checklist_app/screens/widgets/itemDialogs.dart';
-import 'package:checklist_app/screens/widgets/itemList.dart';
-import 'package:checklist_app/util/constants.dart';
+import 'package:GetGroceries/controllers/auth_controller.dart';
+import 'package:GetGroceries/controllers/item_list_controller.dart';
+import 'package:GetGroceries/repositories/custom_exception.dart';
+import 'package:GetGroceries/screens/widgets/itemDialogs.dart';
+import 'package:GetGroceries/screens/widgets/itemList.dart';
+import 'package:GetGroceries/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:checklist_app/util/colors.dart';
+import 'package:GetGroceries/util/colors.dart';
 import 'package:fluttericon/typicons_icons.dart';
 import 'package:hooks_riverpod/all.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/rpg_awesome_icons.dart';
 
-import 'package:checklist_app/models/item_model.dart';
+import 'package:GetGroceries/models/item_model.dart';
 
 class HomeScreen extends HookWidget {
   @override

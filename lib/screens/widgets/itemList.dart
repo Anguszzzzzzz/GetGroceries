@@ -1,10 +1,10 @@
-import 'package:checklist_app/controllers/item_list_controller.dart';
-import 'package:checklist_app/models/item_model.dart';
-import 'package:checklist_app/repositories/custom_exception.dart';
-import 'package:checklist_app/ui/components.dart';
-import 'package:checklist_app/util/app_theme.dart';
-import 'package:checklist_app/util/colors.dart';
-import 'package:checklist_app/util/constants.dart';
+import 'package:GetGroceries/controllers/item_list_controller.dart';
+import 'package:GetGroceries/models/item_model.dart';
+import 'package:GetGroceries/repositories/custom_exception.dart';
+import 'package:GetGroceries/ui/components.dart';
+import 'package:GetGroceries/util/app_theme.dart';
+import 'package:GetGroceries/util/colors.dart';
+import 'package:GetGroceries/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';

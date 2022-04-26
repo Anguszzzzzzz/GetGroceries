@@ -1,7 +1,7 @@
-import 'package:checklist_app/models/item_model.dart';
+import 'package:GetGroceries/models/item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:checklist_app/extensions/firebase_firestore_extension.dart';
+import 'package:GetGroceries/extensions/firebase_firestore_extension.dart';
 
 import '../general_providers.dart';
 import 'custom_exception.dart';

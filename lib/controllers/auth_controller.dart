@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:checklist_app/repositories/auth_repository.dart';
+import 'package:GetGroceries/repositories/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';

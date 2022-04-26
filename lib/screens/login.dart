@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:checklist_app/controllers/auth_controller.dart';
-import 'package:checklist_app/general_providers.dart';
-import 'package:checklist_app/repositories/auth_repository.dart';
-import 'package:checklist_app/util/colors.dart';
+import 'package:GetGroceries/controllers/auth_controller.dart';
+import 'package:GetGroceries/general_providers.dart';
+import 'package:GetGroceries/repositories/auth_repository.dart';
+import 'package:GetGroceries/util/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

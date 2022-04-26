@@ -1,7 +1,7 @@
-import 'package:checklist_app/controllers/auth_controller.dart';
-import 'package:checklist_app/models/item_model.dart';
-import 'package:checklist_app/repositories/custom_exception.dart';
-import 'package:checklist_app/repositories/item_repository.dart';
+import 'package:GetGroceries/controllers/auth_controller.dart';
+import 'package:GetGroceries/models/item_model.dart';
+import 'package:GetGroceries/repositories/custom_exception.dart';
+import 'package:GetGroceries/repositories/item_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
